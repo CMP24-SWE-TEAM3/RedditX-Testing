@@ -36,9 +36,6 @@ describe('Test Post functionality', () => {
     it("Code test",()=>{
       buttonCheckAndClick("Code")
       editorCheckAndType("code");
-      // Hamza give me styles
-      // here is  a problem in the background color
-      //#0000000d
       PostPage.getSpanContent("code").should("have.css","background","rgb(246, 247, 248)")
       PostPage.getSpanContent("code").should("have.css","background","#0000000d")
     })
@@ -46,25 +43,12 @@ describe('Test Post functionality', () => {
     it("Superscript test",()=>{
       buttonCheckAndClick("Superscript")
       editorCheckAndType("Superscript words")
-      // here is a problem not super but baseline
-      // <span data-offset-key="1u9me-0-0" style="color: rgb(28, 28, 28); vertical-align: super; font-size: 12px;"><span data-text="true">zssacdsc</span></span>
       PostPage.getSpanContent("Superscript words").should("have.css","vertical-align","super")
     })
 
     it("Spoiler test",()=>{
       buttonCheckAndClick("Spoiler")
       editorCheckAndType("spoiler words");
-      // here is a problem not #D but 0,0,0
-      // background-color: rgb(84, 84, 82);
-      // SPOILER: {
-      //   backgroundColor: "#545452",
-      //   borderRadius: "2px",
-      //   caretColor: "#fff",
-      //   color: "#fff",
-      //   display: "inline-block",
-      //   margin: "0 3px",
-      //   padding: "0 4px",
-      // },
       PostPage.getSpanContent("spoiler words").should("have.css","background-color","rgb(84, 84, 82)")
     })
 
@@ -72,8 +56,7 @@ describe('Test Post functionality', () => {
     it(" header test ",()=>{
       buttonCheckAndClick("Header")
       editorCheckAndType("Heading words")
-      //give me font size 
-      PostPage.getSpanContent("Heading words").should("have.css","font-size","")
+      PostPage.getSpanContent("Heading words").should("have.css","font-size","40px")
 
     })
 
@@ -98,7 +81,6 @@ describe('Test Post functionality', () => {
       PostPage.getCodeBlockButton().should("be.visible");
       PostPage.getCodeBlockButton().click();
       editorCheckAndType("test code");
-      // give me the style ya hamza
       PostPage.getCodeBlockcontent().should("be.visible")
                                                 .and("text","test code")
                                                 .and("have.css","background-color","rgba(0, 0, 0, 0.05)")
@@ -119,7 +101,6 @@ describe('Test Post functionality', () => {
       PostPage.getLinkPormpetFiled('Paste or type link here').type("not a link")
       PostPage.getLinkPormpetFiled('Title of link (optional)').should("be.visible")
       PostPage.getLinkPormpetButton().should("be.visible").click();
-      // no link validations should give me an alert if it is not a link
       editorCheck("Text (optional)")
       PostPage.getLinkPrompetAlert().should("be.visible");
     })
@@ -131,7 +112,6 @@ describe('Test Post functionality', () => {
       PostPage.getLinkPormpetFiled('Title of link (optional)').should("be.visible")
       PostPage.getLinkPormpetButton().should("be.visible").click();
       editorCheck("https://www.reddit.com/submit")
-      // problem with css
       PostPage.getSpanContent("https://www.reddit.com/submit").should("have.css","text-decoration","underline")
     })
 
@@ -140,7 +120,6 @@ describe('Test Post functionality', () => {
       PostPage.getLinkPormpetFiled('Paste or type link here').should("be.visible")
       PostPage.getLinkPormpetFiled('Title of link (optional)').should("be.visible").type("title without link")
       PostPage.getLinkPormpetButton().should("be.visible").click();
-      // no link validations should give me an alert if it is not a link
       editorCheck("Text (optional)")
       PostPage.getLinkPrompetAlert().should("be.visible");
     })

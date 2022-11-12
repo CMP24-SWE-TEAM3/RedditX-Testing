@@ -10,14 +10,12 @@ describe('Test Post functionality', () => {
   beforeEach(() => {
         cy.clearLocalStorage();
         cy.fixture("MediaData").then((data) => {
-          //using a callback function to have access to the data in the fixture file and assigning it to a variable to make it global so it can be accessed through out the test.
           globalThis.data = data;
         });
         cy.visit("http://localhost:3000");
         PostPage.getEditorArea().should("be.visible");
         PostPage.getImageVideoTab().should("be.visible").click();
         PostPage.getTitleField().should("be.visible")
-        // cy.get("#react-aria6703074908-2-tabpane-Link > div > div > div > div.sc-hHTYSt.bpSPpG > button.sc-kgTSHT.jVGNSF.btn.btn-primary").contains("Post").should("have.attr","disabled");
     });
 
     it("attech file and the preview window mustn't be visible ",()=>{
@@ -66,7 +64,6 @@ describe('Test Post functionality', () => {
 
     it("put invalid file must give me fial alert",()=>{
         attchFile(data.invalidFile)
-        //Hamza (your extenations)
         checkExtenation()
     })
 
@@ -78,16 +75,12 @@ describe('Test Post functionality', () => {
 
     it.only("test upload valid video and show cancel button",()=>{
         attchFile(data.validVideo);
-        //must give me alert
         MediaUpload.getCancelButton().should("be.visible");
     })
 
     it.only("test upload valid video and show success alert",()=>{
         attchFile(data.validVideo);
-        //must give me alert
         checkSuccessAlert();
-        // Hamza must give me the action after uploading the video
-
     })
 
     it.only("test upload more than one video",()=>{
@@ -95,7 +88,6 @@ describe('Test Post functionality', () => {
         cy.wait(2000);
         attchFile(data.validVideo);
         
-        //must give me alert
         checkMulityVideoFail()
         
     })

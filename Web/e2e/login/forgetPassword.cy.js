@@ -55,7 +55,6 @@ describe('Test the functionality of the login page', () => {
         ForgetPassword.getEmailField().type(data.email);
         ForgetPassword.getResetButton().click();
         ForgetPassword.getSuccessAlert().should("be.visible").and("text","Thanks! If your Reddit username and email address match, you'll get an email with a link to reset your password shortly.")
-        // ForgetPassword.getErrorEmailNotification().should("be.visible").and("text","Please fix your email to continue");
     }) 
 
     it.only("test forget username button",()=>{
