@@ -1,0 +1,11 @@
+{
+    "validEmail":"Ma7moud@gmail.com",
+    "validUsername":"Mahmoud",
+    "invalidEmail":"Mahmoud Reda@gmail.com",
+    "invalidUsername1":"Mahmoud Reda",
+    "invalidUsername2":".Mahmoud",
+    "invalidUsername3":"M",
+    "invalidUsername4":"Ma",
+    "validPassword":"mahmoudreda",
+    "invalidPassword":"mahmoud"
+}
