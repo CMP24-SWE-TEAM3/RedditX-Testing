@@ -13,4 +13,3 @@ class MediaUpload {
 }
 
 export default new MediaUpload();
-// test upload images and video

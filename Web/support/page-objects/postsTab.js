@@ -11,11 +11,11 @@ class SearchPagePostsTab {
 
 
     getSortButton(){
-        return cy.get(".sort");
+        return cy.get("div.sort button[type='button']");
     }
 
     getSortDropDown(){
-        return cy.get(".drop-down-sort");
+        return cy.get("div.sort > div > div");
     }
 
     getSortDropDownItem(text){
@@ -23,11 +23,11 @@ class SearchPagePostsTab {
     }
 
     getTimeButton(){
-        return cy.get(".time");
+        return cy.get("div.time button[type='button']");
     }
 
     getTimeDropDown(){
-        return cy.get(".drop-down-time");
+        return cy.get("div.time > div > div");
     }
 
     getTimeDropDownItem(text){
@@ -59,15 +59,15 @@ class SearchPagePostsTab {
     }
 
     getSeeMoreCommunitiesSectionButton(){
-        return cy.get("#see-more");
+        return cy.get("#seemore");
     }
 
     getJoinCommunityButton(text){
-        return cy.get(".join").contains(text);
+        return cy.get("div> a > div > div.button > button").contains(text);
     }
 
     getAllCommunitiesButtons(){
-        return cy.get(".join").filter((index, elt) => { return elt.innerText.match("Join")||  elt.innerText.match("Joined") }) ;
+        return cy.get("div> a > div > div.button > button").filter((index, elt) => { return elt.innerText.match("Join")||  elt.innerText.match("Joined") }) ;
     }
     
     getCommunitiesNames(){
@@ -77,16 +77,16 @@ class SearchPagePostsTab {
     getFollowButtons(text){
         if(text)
         {
-            cy.get(".follow").contains(text);
+            cy.get(".follow-button").contains(text);
         }
         else
         {
-            cy.get(".follow");
+            cy.get(".follow-button");
         }
     }
 
     getBackToTopButton(){
-        return cy.get("#back-to-top");
+        return cy.get("#backtotop");
     }
 
     functionScroll(x,y){
@@ -94,7 +94,7 @@ class SearchPagePostsTab {
     }
 
     getSuccessAlert(){
-        return cy.get("#success-alert");
+        return cy.get("#successAlert");
     }
   }
   

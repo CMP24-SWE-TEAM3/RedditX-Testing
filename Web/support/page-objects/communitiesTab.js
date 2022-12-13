@@ -1,6 +1,6 @@
 class SearchPageCommunityTab{
     getCommunitiesNames(){
-        cy.get(".community-name");
+        cy.get("selector to community name");
     }
 }
 

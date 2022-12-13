@@ -1,6 +1,6 @@
 class SearchPagePeopleTab{
     getUsersNames(){
-        cy.get(".user-name");
+        cy.get("#usersNames");
     }
 }
 

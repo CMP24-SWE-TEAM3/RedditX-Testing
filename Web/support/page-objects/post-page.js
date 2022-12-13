@@ -12,29 +12,36 @@ class PostPage {
     }
 
     getLinkTab(){
-        return cy.get("link-tab");
+        return cy.get("[data-rr-ui-event-key='Link']");
     }
 
     getTitleField(){
-        return cy.get("#title")
+        return cy.get("textarea#title:nth(0)")
+    }
+
+    getTitleFieldMedia(){
+        return cy.get("textarea#title:nth(1)")
+    }
+    getTitleFieldLink(){
+        return cy.get("textarea#title:nth(2)")
     }
 
     getUrlFieldLinkTab(){
-        return cy.get("#url");
+        return cy.get("textarea[placeholder='Url']");
     }
     getEditorArea(){
-        return cy.get("#post-area");
+        return cy.get(".DraftEditor-root");
     }
 
     getSpanContent(text){
-        cy.get("span").contains(text);
+        return cy.get("span").contains(`${text}`);
     }
     getBoldButton(){
         return cy.get("#Bold");
     }
 
     getItalicButton(){
-        return cy.get("#Italic");
+        return cy.get("#Italics");
     }
 
     getUnderlineButton(){
@@ -46,7 +53,7 @@ class PostPage {
     }
 
     getCodeButton(){
-        return cy.get("#code");
+        return cy.get("#Inline-Code");
     }
 
     getSuperscriptButton(){
@@ -58,27 +65,19 @@ class PostPage {
     }
 
     getHeaderButton(){
-        return cy.get("#H4");
+        return cy.get("#Heading");
     }
 
     getULButton(){
-        return cy.get("#Ul");
-    }
-
-    getImageButton(){
-        return cy.get("#image");
-    }
-
-    getVideoButton(){
-        return cy.get("#video");
+        return cy.get("#Bulleted-list");
     }
 
     getOLButton(){
-        return cy.get("#Ol");
+        return cy.get("#Numbered-list");
     }
 
     getLinkButton(){
-        return cy.get("#Link");
+        return cy.get("span[data-testid='link-btn']");
     }
 
     getLinkPormpetFiled(text){
@@ -90,26 +89,26 @@ class PostPage {
     }
 
     getLinkPrompetAlert(){
-        return cy.contains("Link does'nt look right")
+        return cy.get("span").contains("Link doesn't look right")
     }
     getCodeBlockButton(){
         return cy.get("#Code-Block");
     }
 
     getResultUl(){
-        cy.get("ul.public-DraftStyleDefault-ul");
+        return cy.get(" div[data-contents='true'] > ul");
     }
 
     getResultUlElement(){
-        cy.get("ul.public-DraftStyleDefault-ul>li");
+        return cy.get("div[data-contents='true']>ul.public-DraftStyleDefault-ul>li");
     }
 
     getResultOl(){
-        cy.get("ol.public-DraftStyleDefault-ol");
+        return cy.get("ol.public-DraftStyleDefault-ol");
     }
 
     getResultOlElement(){
-        cy.get("ol.public-DraftStyleDefault-ol>li");
+        return cy.get("ol.public-DraftStyleDefault-ol>li");
     }
 
     getCodeBlockcontent(){
@@ -117,51 +116,54 @@ class PostPage {
     }
 
 
-    getPostButton(){
+    getPostButtonSubmit(){
         return cy.get("#post");
     }
 
     getCommunityField(){
-        return cy.get("#search-communities")
+        return cy.get("r/Community")
     }
-    // choose-community
 
     //Image Tab
     getFileField(){
-        return cy.get("input[type='file']");
+        return cy.get(" div > div.sc-bPxJiH.HvhXH > div:nth-child(2) > div > input[type=file]");
     }
 
     getPreviewImage(){
-        return cy.get('#preview-image');
+        return cy.get('#uploadedpreview');
     }
 
-    getImage(text){
-        //uploaded-image new class name
-        return cy.get(`#${text}`)
+    getImage(i){
+        return cy.get(`img.uploaded-image:nth(${i})`)
     }
 
     getSelectedImageInPreview(){
-        // class rather than id .img-thumbnail
-        return cy.get(`#selectedImage`)
+        return cy.get(`#preview-image`)
     }
 
-    getDangerPerImage(text){
-        // class delete-img-danger 
-        return cy.get(`#danger${text}`);
+    getDangerPerImage(i){
+        return cy.get(`.delete-img-danger:nth(${i})`);
     }
     getPostButton(){
-        return cy.get("button[type='button']").contains("Post");
+        return cy.get("button#post");
+    }
+
+    getPostButtonMedia(){
+        return cy.get("button#post:nth(1)");
     }
     
     getCommunityDropDown(){
-        //#communities-drop-down
-        return cy.get("#root > div > div.sc-gswNZR.bOjxFd > div.sc-jSUZER.gMDupT > div > div > span");
+        return cy.get("#search-communities");
     }
 
     getAllCommunities(){
-        return cy.get(".choose-community");
+        return cy.get("#communities-drop-down>div:nth(0)");
+    }
+
+    getPrompet(){
+        return cy.get("form")
     }
   }
   
-    export default new PostPage();
+  export default new PostPage();
   
