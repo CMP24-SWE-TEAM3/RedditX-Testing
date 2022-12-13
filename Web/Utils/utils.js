@@ -7,3 +7,8 @@ module.exports.login=()=>{
     HomePage.getLoginButtonSubmit().realClick();
     cy.wait(2000)
 }
+
+
+module.exports.checkUrl=(text)=>{
+    cy.url().should("include",`${text}`);
+}
