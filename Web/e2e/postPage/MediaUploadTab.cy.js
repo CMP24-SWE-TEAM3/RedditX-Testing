@@ -1,4 +1,5 @@
-import {PostPage,MediaUpload} from "../../support/page-objects"
+import {PostPage,HomePage,MediaUpload} from "../../support/page-objects"
+import { login } from "../../Utils/utils";
 import{ attchFile,
         deleteImage,
         checkShownImage,
@@ -7,20 +8,19 @@ import{ attchFile,
         checkMulityVideoFail,
         checkUrl} from "../../Utils/postPage/mediaUpload"
 describe('Test Post functionality', () => { 
-  beforeEach(() => {
-        cy.clearLocalStorage();
+    beforeEach(()=>{
+        cy.visit("https://dev.redditswe22.tech");
+        login();
+        HomePage.getSubmitButton().realClick();
         cy.fixture("MediaData").then((data) => {
-          globalThis.data = data;
+            globalThis.data = data;
         });
-        cy.visit("http://localhost:3000");
-        PostPage.getEditorArea().should("be.visible");
         PostPage.getImageVideoTab().should("be.visible").click();
-        PostPage.getTitleField().should("be.visible")
-    });
+      })
 
     it("attech file and the preview window mustn't be visible ",()=>{
         attchFile(data.image1)
-        PostPage.getPreviewImage().should("not.be.visible");
+        PostPage.getPreviewImage().should('not.exist');
     })
 
     it("attech more than file  and the preview window must be visible with the last image ",()=>{
@@ -30,9 +30,9 @@ describe('Test Post functionality', () => {
         cy.wait(2000);
         attchFile(data.image3)
         cy.wait(2000);
-        checkShownImage(data.image3)
-        deleteImage(data.image3)
-        checkShownImage(data.image2)
+        checkShownImage(2)
+        deleteImage(2)
+        checkShownImage(1)
     })
 
 
@@ -43,8 +43,8 @@ describe('Test Post functionality', () => {
         cy.wait(2000);
         attchFile(data.image3)
         cy.wait(2000);
-        deleteImage(data.image3)
-        checkShownImage(data.image2)
+        deleteImage(2)
+        checkShownImage(1)
     })
 
 
@@ -55,15 +55,16 @@ describe('Test Post functionality', () => {
         cy.wait(2000);
         attchFile(data.image3)
         cy.wait(2000);
-        PostPage.getImage(data.image2).click();
-        checkShownImage(data.image2)
-        deleteImage(data.image2)
-        checkShownImage(data.image1)
+        PostPage.getImage(1).click();
+        checkShownImage(1)
+        deleteImage(1)
+        checkShownImage(0)
     })
 
 
     it("put invalid file must give me fial alert",()=>{
         attchFile(data.invalidFile)
+        //Hamza (your extenations)
         checkExtenation()
     })
 
@@ -73,29 +74,34 @@ describe('Test Post functionality', () => {
         checkExtenation()
     })
 
-    it.only("test upload valid video and show cancel button",()=>{
+    it("test upload valid video and show cancel button",()=>{
         attchFile(data.validVideo);
+        //must give me alert
         MediaUpload.getCancelButton().should("be.visible");
     })
 
-    it.only("test upload valid video and show success alert",()=>{
+    it("test upload valid video and show success alert",()=>{
         attchFile(data.validVideo);
+        //must give me alert
         checkSuccessAlert();
+        // Hamza must give me the action after uploading the video
+
     })
 
-    it.only("test upload more than one video",()=>{
+    it("test upload more than one video",()=>{
         attchFile(data.validVideo);
         cy.wait(2000);
         attchFile(data.validVideo);
         
+        //must give me alert
         checkMulityVideoFail()
         
     })
 
     it.only("put a valid data to the post",()=>{
         attchFile(data.image1);
-        PostPage.getTitleField().type("New title");
-        PostPage.getPostButton().click();
+        PostPage.getTitleFieldMedia().type("New title");
+        PostPage.getPostButtonMedia().realClick();
         cy.wait(4000);
         checkUrl("/new_title/")
     })

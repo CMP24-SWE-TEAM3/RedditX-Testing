@@ -5,6 +5,7 @@ describe('Test the functionality of the login page', () => {
     beforeEach(() => {
         cy.clearLocalStorage();
         cy.fixture("UserData").then((data) => {
+          //using a callback function to have access to the data in the fixture file and assigning it to a variable to make it global so it can be accessed through out the test.
           globalThis.data = data;
         });
         cy.visit("https://www.reddit.com/login");
@@ -13,6 +14,7 @@ describe('Test the functionality of the login page', () => {
         LoginPage.getUsernameField().should("be.visible").clear();
         LoginPage.getPasswordField().should("be.visible").clear();
         LoginPage.getGoogleButton().should("be.visible");
+        // LoginPage.getFacebookButton().should("be.visible");
     });
 
     it("check field Password required",()=>{
@@ -27,6 +29,8 @@ describe('Test the functionality of the login page', () => {
         LoginPage.getPasswordField().type(data.password);
         LoginPage.getLoginButton().click();
         cy.get("body > div > main > div.OnboardingStep.Onboarding__step.mode-auth > div > div.Step__content > form > fieldset:nth-child(8) > div > span").should("be.visible").and("text","You are now logged in. You will soon be redirected")
+        cy.wait(2000)
+        cy.reload("https://www.reddit.com/")
     })
     
     // Negative Test cases
@@ -37,6 +41,7 @@ describe('Test the functionality of the login page', () => {
         LoginPage.getLoginButton().click();
         LoginPage.getUsernameErrorNotification().should("be.visible");
         LoginPage.getUsernameErrorNotification().should("text","Incorrect username or password")
+        // wait to the web team to what will be shown in the home page 
     })
 
     it("test valid username with invalid password",()=>{
@@ -60,6 +65,7 @@ describe('Test the functionality of the login page', () => {
         LoginPage.getUsernameField().blur();
         LoginPage.getUsernameErrorNotification().should("be.visible");
         LoginPage.getUsernameErrorNotification().should("text",'Username must be between 3 and 20 characters');
+        // wait to the web team to what will be shown in this case
     });
 
     it("see alert when the username field has two char", () => {
@@ -67,6 +73,7 @@ describe('Test the functionality of the login page', () => {
         LoginPage.getUsernameField().blur();
         LoginPage.getUsernameErrorNotification().should("be.visible");
         LoginPage.getUsernameErrorNotification().should("text",'Username must be between 3 and 20 characters');
+        // wait to the web team to what will be shown in this case
     });
 
     it("when click on the username link will load the forget username",()=>{

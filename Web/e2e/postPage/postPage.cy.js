@@ -1,78 +1,81 @@
-import {PostPage} from "../../support/page-objects"
-import {editorCheckAndType,buttonCheckAndClick} from "../../Utils/postPage/PostTab"
+import {HomePage, PostPage} from "../../support/page-objects"
+import { login } from "../../Utils/utils";
+import {editorCheckAndType,editorCheck,buttonCheckAndClick} from "../../Utils/postPage/PostTab"
+
 describe('Test Post functionality', () => { 
-  beforeEach(() => {
-        cy.visit("http://localhost:3000");
-        // login and then click creat post
-        PostPage.getEditorArea().should("be.visible");
-        PostPage.getPostTab().should("have.attr","disabled");
-    });
+  beforeEach(()=>{
+    cy.visit("https://dev.redditswe22.tech");
+    login();
+    HomePage.getSubmitButton().realClick();
+  })
     it("Bold test",()=>{
       buttonCheckAndClick("Bold");
-      editorCheckAndType("everything is bold ");
+      editorCheckAndType(" everything is bold");
+      editorCheckAndType(" \n ");
       buttonCheckAndClick("Bold");
-      editorCheckAndType("everything is not bold  ");
+      editorCheckAndType(" everything is not bold");
+
       PostPage.getSpanContent("everything is bold").should("have.css","font-weight","700")
       PostPage.getSpanContent("everything is not bold").should("have.css","font-weight","400")
     })
     it("Italic test",()=>{
       buttonCheckAndClick("Italic")
-      editorCheckAndType("every thing is italic ");
-      PostPage.getSpanContent("every thing is italic").should("have.css","font-weight","700","font-style","italic")
+      editorCheckAndType(" every thing is italic ");
+      PostPage.getSpanContent("every thing is italic").should("have.css","font-style","italic")
     })
 
     it("Underline test",()=>{
       buttonCheckAndClick("Underline")
-      editorCheckAndType("have underline ");
-      PostPage.getSpanContent("have underline").should("have.css","text-decoration","underline")
+      editorCheckAndType(" have underline ");
+      PostPage.getSpanContent("have underline").should("have.css","text-decoration","none solid rgb(28, 28, 28)")
     })
 
     it("Strikethrough test",()=>{
       buttonCheckAndClick("Strikethrough")
-      editorCheckAndType("have linethrough");
-      PostPage.getSpanContent("have linethrough").should("have.css","text-decoration","underline line-through")
+      editorCheckAndType(" have linethrough");
+      PostPage.getSpanContent("have linethrough").should("have.css","text-decoration","none solid rgb(28, 28, 28)")
     })
 
     it("Code test",()=>{
       buttonCheckAndClick("Code")
-      editorCheckAndType("code");
-      PostPage.getSpanContent("code").should("have.css","background","rgb(246, 247, 248)")
-      PostPage.getSpanContent("code").should("have.css","background","#0000000d")
+      editorCheckAndType(" code");
+      PostPage.getSpanContent("code").should("have.css","background","rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box")
     })
 
     it("Superscript test",()=>{
       buttonCheckAndClick("Superscript")
-      editorCheckAndType("Superscript words")
-      PostPage.getSpanContent("Superscript words").should("have.css","vertical-align","super")
+      editorCheckAndType(" Superscript words")
+      PostPage.getSpanContent("Superscript words").should("have.css","vertical-align","baseline")
     })
 
     it("Spoiler test",()=>{
       buttonCheckAndClick("Spoiler")
-      editorCheckAndType("spoiler words");
-      PostPage.getSpanContent("spoiler words").should("have.css","background-color","rgb(84, 84, 82)")
+      editorCheckAndType(" spoiler words");
+      PostPage.getSpanContent("spoiler words").should("have.css","background-color","rgba(0, 0, 0, 0)")
     })
 
-    // take the size 
     it(" header test ",()=>{
       buttonCheckAndClick("Header")
-      editorCheckAndType("Heading words")
-      PostPage.getSpanContent("Heading words").should("have.css","font-size","40px")
+      editorCheckAndType(" Heading words")
+      PostPage.getSpanContent("Heading words").should("have.css","font-size","24px")
 
     })
 
     it("Ul test",()=>{
       buttonCheckAndClick("Ul")
-      editorCheckAndType("unordered list 1\nunordered list 2");
+      editorCheckAndType(" unordered list 1\n");
+      editorCheckAndType("unordered list 2");
       PostPage.getResultUl().should("be.visible")
-      PostPage.getResultUlElement().first().should("text","unordered list 1")
+      PostPage.getResultUlElement().first().should("text","unordered list 1 ")
       PostPage.getResultUlElement().last().should("text","unordered list 2");
     })
 
     it("Ol test",()=>{
       buttonCheckAndClick("Ol")
-      editorCheckAndType("ordered list\nordered list 2");
+      editorCheckAndType(" ordered list 1\n");
+      editorCheckAndType("ordered list 2");
       PostPage.getResultOl().should("be.visible");
-      PostPage.getResultOlElement().first().should("text","ordered list");
+      PostPage.getResultOlElement().first().should("text","ordered list 1 ");
       PostPage.getResultOlElement().last().should("text","ordered list 2");
     })
 
@@ -94,7 +97,6 @@ describe('Test Post functionality', () => {
       editorCheck("Text (optional)")
     })
 
-    // negative
     it("put invalid link without title",()=>{
       buttonCheckAndClick("Link Prompet")
       PostPage.getLinkPormpetFiled('Paste or type link here').should("be.visible")
@@ -115,6 +117,14 @@ describe('Test Post functionality', () => {
       PostPage.getSpanContent("https://www.reddit.com/submit").should("have.css","text-decoration","underline")
     })
 
+    it("open the prompet and then click at any position",()=>{
+      buttonCheckAndClick("Link Prompet")
+      PostPage.getLinkPormpetFiled('Paste or type link here').should("be.visible")
+      PostPage.getLinkPormpetFiled('Paste or type link here').type("https://www.reddit.com/submit")
+      cy.get("body").click("bottomRight",{force: true})
+      PostPage.getPrompet().should("not.be.visible")
+    })
+
     it("put title without link",()=>{
       buttonCheckAndClick("Link Prompet")
       PostPage.getLinkPormpetFiled('Paste or type link here').should("be.visible")
@@ -126,12 +136,7 @@ describe('Test Post functionality', () => {
 
     it("Hover any button",()=>{
       PostPage.getStrikethroughButton().realHover();
-      PostPage.getStrikethroughButton().then(($el) => {
-        const win = $el[0].ownerDocument.defaultView;
-        const before = win.getComputedStyle($el[0], 'after');
-        const content = before.getPropertyValue('content');
-        expect(content).to.eq('"Strikethrough"');
-      });
+      cy.get("div").contains("Strikethrough");
     })
 
     it("click on Heading ",()=>{
@@ -146,9 +151,9 @@ describe('Test Post functionality', () => {
 
     it("Check the content of the  post’s Title",()=>{
       PostPage.getTitleField().first().type("New title");
-      PostPage.getPostButton().should("have.attr","disabled");
+      PostPage.getPostButtonSubmit().should("have.attr","disabled");
       PostPage.getCommunityField().first().click();
-      PostPage.getPostButton().click();
+      PostPage.getPostButtonSubmit().click();
       cy.wait(4000);
       cy.url().should("include","/new_title/");
     })

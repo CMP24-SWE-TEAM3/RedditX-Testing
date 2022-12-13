@@ -4,6 +4,7 @@ describe('Test the functionality of the Forget username page', () => {
     beforeEach(() => {
         cy.clearLocalStorage();
         cy.fixture("ForgetUsernameData").then((data) => {
+          //using a callback function to have access to the data in the fixture file and assigning it to a variable to make it global so it can be accessed through out the test.
           globalThis.data = data;
         });
         cy.visit("https://www.reddit.com/login");
