@@ -10,6 +10,7 @@ module.exports.checkSuccessAlert=(text)=>{
 module.exports.checkUrl=(text)=>{
     cy.url().should("include",`${text}`);
 }
+
 module.exports.topPosts=()=>{
     SearchPagePostsTab.getUpvoteUnites().then(postsUnits=>{
         SearchPagePostsTab.getUpvotes().then(postsUpvotes=>
@@ -52,6 +53,7 @@ module.exports.topPosts=()=>{
         });
     })
 }
+
 
 
 

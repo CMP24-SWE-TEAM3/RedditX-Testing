@@ -1,14 +1,14 @@
 import {PostPage,MediaUpload} from "../../support/page-objects";
-module.exports.attchFile=(image)=>{
+module.exports.attchFile=(fileName)=>{
     PostPage.getFileField().attachFile(image);
 }
-module.exports.deleteImage=(i)=>{
-    PostPage.getImage(i).realHover();
-    PostPage.getDangerPerImage(i).should("be.visible").click({force: true})
+module.exports.deleteImage=(imageName)=>{
+    PostPage.getImage(imageName).realHover();
+    PostPage.getDangerPerImage(imageName).should("be.visible").click()
 }
 
-module.exports.checkShownImage=(i)=>{
-    PostPage.getImage(i)
+module.exports.checkShownImage=(imageName)=>{
+    PostPage.getImage(imageName)
         .invoke('attr', 'src')
         .as('src_1')
         //get the src of the selected
@@ -33,7 +33,7 @@ module.exports.checkExtenation=()=>{
 }
 
 module.exports.checkSuccessAlert=()=>{
-    MediaUpload.getSuccessAlert().should("have.text","success message");
+    MediaUpload.getSuccessAlert().should("have.text","?? hamza??");
 }
 
 module.exports.checkMulityVideoFail=()=>{
