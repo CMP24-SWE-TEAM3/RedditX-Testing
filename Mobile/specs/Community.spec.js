@@ -101,7 +101,6 @@ describe('Community Page', () => {
         expect(size).toStrictEqual({"height":298, "width":640});
     })
     //.............................................................//
-    // not runned
     // test settings
     it("click on the settings button see dropdown Window",async()=>{
         const settingsButton=await CommunityObject.getSettingsButton();

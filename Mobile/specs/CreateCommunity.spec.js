@@ -1,5 +1,8 @@
 const CreateCommunity =require("../pageobjects/CreateCommunity")
 const CreateCommunityObject= new CreateCommunity;
+const Login = require('../pageobjects/Login');
+const LoginPOM = new Login();
+const {login}=require("../utils/utilsLogin");
 
 describe('Create Community testing', () => {
 
@@ -8,17 +11,30 @@ describe('Create Community testing', () => {
     await driver.reset();
   });
   beforeEach(async()=>{
-   
+    const contineuButton=await  LoginPOM.getContineuWithEmail();
+    await contineuButton.click();
+    const usernameField=await LoginPOM.getUsernameField();
+    await usernameField.addValue("mahmoud_reda");
+    const passwordField=await LoginPOM.getPasswordField();
+    await passwordField.addValue("123456789");
+    const loginButton =await LoginPOM.getLoginButton();
+    await loginButton.click();
+
+    const dropDownicon=await  CreateCommunityObject.getCreateCommunityIcon();
+    await dropDownicon.click();
+    const createCommunityIcon=await CreateCommunityObject.getCreateCommunityButton();
+    await createCommunityIcon.click();
+    // const dropDownicon=await  CreateCommunityObject.getCreateCommunityIcon();
+    // await dropDownicon.click();
   })
 
     it(" Check Community Name Field ",async ()=>{
         const CommunityName=await CreateCommunityObject.getCommunityNameField();
-        expect(await CommunityName.isVisible()).toBe(true);
+        expect(await CommunityName.isDisplayed()).toBe(true);
     })
     it(" Check Community type Button ",async ()=>{
         const Communitytype=await CreateCommunityObject.getCommunitytypeButton();
         expect(await Communitytype.isEnabled()).toBe(true);
-        await Communitytype.click();
     })
     it(" Check Community type Button & Public  ",async ()=>{
         const Communitytype=await CreateCommunityObject.getCommunitytypeButton();
@@ -59,7 +75,7 @@ describe('Create Community testing', () => {
     it(" Create Public With +18 Community  ",async ()=>{
         // put Name
         const CommunityName=await CreateCommunityObject.getCommunityNameField();
-        expect(await CommunityName.isVisible()).toBe(true);
+        expect(await CommunityName.isDisplayed()).toBe(true);
         await CommunityName.addValue("Mahmoud_123");
         // select Public
         const Communitytype=await CreateCommunityObject.getCommunitytypeButton();
@@ -80,7 +96,7 @@ describe('Create Community testing', () => {
     it(" Create Private Community  ",async ()=>{
         // put Name
         const CommunityName=await CreateCommunityObject.getCommunityNameField();
-        expect(await CommunityName.isVisible()).toBe(true);
+        expect(await CommunityName.isDisplayed()).toBe(true);
         await CommunityName.addValue("Mahmoud_123");
         // select Private
         const Communitytype=await CreateCommunityObject.getCommunitytypeButton();
@@ -97,7 +113,7 @@ describe('Create Community testing', () => {
     it(" Create Restricted With +18 Community  ",async ()=>{
         // put Name
         const CommunityName=await CreateCommunityObject.getCommunityNameField();
-        expect(await CommunityName.isVisible()).toBe(true);
+        expect(await CommunityName.isDisplayed()).toBe(true);
         await CommunityName.addValue("Mahmoud_123");
         // select Public
         const Communitytype=await CreateCommunityObject.getCommunitytypeButton();

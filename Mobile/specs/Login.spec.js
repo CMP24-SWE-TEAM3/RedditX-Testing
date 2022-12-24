@@ -57,7 +57,7 @@ describe("test login page",()=>{
         expect(await showButton.getText()).toBe("hram, Password");
     })
 
-    it.only("click on the signup button ",async()=>{
+    it("click on the signup button ",async()=>{
         const contineuButton =await LoginPOM.getContineuWithEmail();
         await contineuButton.click();
         const signupButton= await LoginPOM.signupButton();

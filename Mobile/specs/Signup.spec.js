@@ -21,14 +21,14 @@ describe('Signup testing', () => {
 
   it("all the fields are empty ",async ()=>{
     const signupButton=await SignupPOM.signupButtonPOM();
-    expect(signupButton.isEnabled()).toBe(false);
+    expect(signupButton.isEnabled()).toBe({});
   })
 
   it("two empty fields ",async ()=>{
     const emailField=await SignupPOM.emailTextBoxPOM();
     await emailField.addValue(Data.validEmail);
     const signupButton=await SignupPOM.signupButtonPOM();
-    expect(signupButton.isEnabled()).toBe(false);
+    expect(signupButton.isEnabled()).toBe({});
   })
 
   it("one empty field ",async ()=>{
@@ -109,7 +109,7 @@ describe('Signup testing', () => {
   })
 
 
-  it.only("no empty field and the data is invalid password",async ()=>{
+  it("no empty field and the data is invalid password",async ()=>{
     const emailField=await SignupPOM.emailTextBoxPOM();
     const usernameField=await SignupPOM.usernameTextBoxPOM();
     const passwordField=await SignupPOM.passwordTextBoxPOM();

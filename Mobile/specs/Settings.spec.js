@@ -1,10 +1,33 @@
 const Settings =require("../pageobjects/Settings");
+const Profile =require("../pageobjects/Profile");
+const Login = require('../pageobjects/Login');
+const Home = require('../pageobjects/Home');
+const HomePage= new Home();
+const LoginPOM = new Login();
+const ProfileObject=new Profile();
 const {ScreenContains}=require("../utils/utils");
 const Data=require("../fixtures/Data.json");
 const SettingsObject= new Settings();
 describe("test Settings",()=>{
     afterEach(async()=>{
         await driver.reset();
+    })
+
+    beforeEach(async ()=>{
+        const contineuButton=await  LoginPOM.getContineuWithEmail();
+        await contineuButton.click();
+        const usernameField=await LoginPOM.getUsernameField();
+        await usernameField.addValue("mahmoud_reda");
+        const passwordField=await LoginPOM.getPasswordField();
+        await passwordField.addValue("123456789");
+        const loginButton =await LoginPOM.getLoginButton();
+        await loginButton.click();
+        driver.setImplicitTimeout(5000)
+        const bar=await HomePage.getUserBar();
+        await bar.click();
+        const settings=await  HomePage.getSettings();
+        await settings.click();
+
     })
 
     it("test Headers of the Sections",async ()=>{
@@ -21,7 +44,7 @@ describe("test Settings",()=>{
 
     it("test content of General buttons",async()=>{
         const accountSettings=await SettingsObject.getAccountSettingsButton();
-        expect(await accountSettings.getAttribute("contentDescription")).toBe("Account settings for u/USERNAME")
+        expect(await accountSettings.getAttribute("contentDescription")).toBe("Account settings for u/mahmoud_reda")
     })
 
     it("test content of premium buttons",async()=>{
@@ -311,7 +334,7 @@ describe("test Settings",()=>{
     })
 
 
-    it.only("click the disable button and then click on the switch ",async()=>{
+    it.skip("click the disable button and then click on the switch ",async()=>{
         const accountSettingsButton=await SettingsObject.getAccountSettingsButton();
         await accountSettingsButton.click();
         const manageEamil= await SettingsObject.manageEmailButton();
