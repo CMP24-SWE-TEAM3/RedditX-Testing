@@ -29,3 +29,4 @@ module.exports.ScreenContains = async (text, time = 3000) => {
     return POM;
 }
 
+
