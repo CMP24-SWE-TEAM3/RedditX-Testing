@@ -10,21 +10,21 @@ class ForgetPasswordPage {
     }
   
     getResetButton() {
-      return cy.get("button[type='submit']");
+      return cy.get("#reset");
     }
 
-    getContainer(){
-      return cy.get("div.ColumnContainer");
+    getTitleContainer(){
+      return cy.get("#forget-password-container > h2");
     }
 
     getErrorEmailNotification(){
-      return cy.get("body > div.Container.m-desktop > div > div.PageColumn.PageColumn__right > div > form.AnimatedForm > div > fieldset.AnimatedForm__field.m-required.m-invalid > div");
+      return cy.get("#email-error");
     }
 
     getErrorUsernameNotification(){
-      return cy.get("body > div.Container.m-desktop > div > div.PageColumn.PageColumn__right > div > form.AnimatedForm > div > fieldset:nth-child(6) > div > span");
+      return cy.get("#username-error");
     }
-
+////////////////////////////////////////////////// not found
     getErrorMulityTimes(){
 
       // should contain("Looks like you've been doing that a lot. Take a break for 7 minutes before trying again.")
@@ -32,7 +32,7 @@ class ForgetPasswordPage {
     }
 
     getSuccessAlert(){
-      return cy.get("body > div > div > div.PageColumn.PageColumn__right > div > form.AnimatedForm > div > fieldset:nth-child(6) > div > span");
+      return cy.get("#success-alert");
     }
   }
   

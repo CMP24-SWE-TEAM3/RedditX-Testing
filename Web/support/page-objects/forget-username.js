@@ -4,15 +4,15 @@ class ForgetUsernamePage {
       }
     
       getResetButton() {
-        return cy.get("button[type='submit']");
+        return cy.get("#reset-button");
       }
   
       getContainer(){
-        return cy.get("div.ColumnContainer");
+        return cy.get("#forget-username-container > h2");
       }
   
       getErrorEmailNotification(){
-        return cy.get("body > div.Container.m-desktop > div > div.PageColumn.PageColumn__right > div > form.AnimatedForm > div > fieldset.AnimatedForm__field.m-required.m-invalid > div");
+        return cy.get("#email-error");
       }
       getErrorMulityTimes(){
   
@@ -21,14 +21,14 @@ class ForgetUsernamePage {
       }
   
       getSuccessAlert(){
-        return cy.get("body > div > div > div.PageColumn.PageColumn__right > div > form.AnimatedForm > div > fieldset:nth-child(6) > div");
+        return cy.get("#success-alert");
       }
 
       getLoginLink(){
-        return cy.get("body > div.Container.m-desktop > div > div.PageColumn.PageColumn__right > div > div.BottomText > a:nth-child(1)")
+        return cy.get("#login-link")
       }
       getSignupLink(){
-        return cy.get("body > div.Container.m-desktop > div > div.PageColumn.PageColumn__right > div > div.BottomText > a:nth-child(3)")
+        return cy.get("#signup-link")
       }
     }
     

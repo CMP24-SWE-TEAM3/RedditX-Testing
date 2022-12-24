@@ -121,12 +121,12 @@ class PostPage {
     }
 
     getCommunityField(){
-        return cy.get("r/Community")
+        return cy.get("#search-communities")
     }
 
     //Image Tab
     getFileField(){
-        return cy.get(" div > div.sc-bPxJiH.HvhXH > div:nth-child(2) > div > input[type=file]");
+        return cy.get("  input[type=file][accept='image/*,video/*']");
     }
 
     getPreviewImage(){
@@ -162,6 +162,10 @@ class PostPage {
 
     getPrompet(){
         return cy.get("form")
+    }
+
+    getCommunity(){
+        return cy.get("div.sc-bVhkf.dhbtch")
     }
   }
   

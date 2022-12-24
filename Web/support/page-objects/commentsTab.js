@@ -1,6 +1,6 @@
 class SearchPageCommentsTab{
-    getAllCommentsContent(){
-        cy.get("selector to comment content");
+    getAllCommentsContent(SEARCH_QUERY){
+        return cy.get("span").contains(SEARCH_QUERY);
     }
 }
 

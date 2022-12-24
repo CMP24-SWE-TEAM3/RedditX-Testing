@@ -1,39 +1,66 @@
-class Message{
-    getMarkUnreadButton(){
-        return cy.get("#unread-btn");
+class Messages {
+    //Send A Private Message
+    getMessageButtonFromHome() {
+        return cy.get('.offcanvas-body > .sc-dpmiif > .list-unstyled > :nth-child(9)');
     }
-
-    getPermalink(i){
-        return cy.get(`.permalink:nth(${i})`)
+    getSendAPrivateMessageTabButton() {
+        return cy.get('#root > div.sc-jxfubC.bHAScV > div.sc-jiFHBL.LNcYy > div > ul > li:nth-child(1) > a')
     }
-
-    getDeleteLink(i){
-        return cy.get(`.deletelink:nth(${i})`)
+    getSentTabButton() {
+        return cy.get('#root > div.sc-jxfubC.bHAScV > div > div > ul > li:nth-child(3) > a')
     }
-
-    getReportLink(i){
-        return cy.get(`.report-link:nth(${i})`);
+    getMessageFromButton() {
+        return cy.get('');
     }
-    getYesButton(){
-        return cy.get(".yes-button");
+    getFirstUserofMessageFromButton() {
+        return cy.get('');
     }
-
-    getNoButton(){
-        return cy.get(".no-button");
+    getSendMessageToContainer() {
+        return cy.get('#root > div.sc-llGDqb.kWinan > div > div > form > div:nth-child(1) > div > input');
     }
-
-    getDeleteAlert(i){
-        return cy.get(`.delete-alert:nth(${i})`).contains("")
+    getSendMessageToErrorContainer() {
+        return cy.get('#root > div.sc-llGDqb.kWinan > div > div > form > div:nth-child(1) > div > span.sc-cWiZSr.ejuLxb.active');
     }
-    getMessageContent(i){
-        return cy.get(`.message-content:nth(${i})`)
+    getSubjectContainer() {
+        return cy.get('#root > div.sc-llGDqb.kWinan > div > div > form > div:nth-child(2) > div > input');
     }
-    getMessageWithContent(text){
-        return cy.get(".messages").contains(text)
+    getSubjectErrorContainer() {
+        return cy.get('#root > div.sc-llGDqb.kWinan > div > div > form > div:nth-child(2) > div > span.sc-cWiZSr.ejuLxb.active');
     }
-    getUnreadTab(){
-        return cy.get("#unread-tab")
+    getMessageBodyContainer() {
+        return cy.get('#root > div.sc-llGDqb.kWinan > div > div > form > div:nth-child(3) > div > div > textarea');
+    }
+    getMessageBodyErrorContainer() {
+        return cy.get('#root > div.sc-llGDqb.kWinan > div > div > form > div:nth-child(3) > div > div > span');
+    }
+    getSendMessageButton() {
+        return cy.get('#root > div.sc-llGDqb.kWinan > div > div > form > button');
+    }
+    ///Sent Messages
+    getFirstSentMessage() {
+        return cy.get('#root > div.sc-jcTjWU.dDMTwg > div > div:nth-child(1) > div')
+    }
+    getFirstSentMessageTitle() {
+        return cy.get('#root > div.sc-jcTjWU.dDMTwg > div > div:nth-child(1) > div > div.sc-dOGYXd.hnbtnQ')
+    }
+    getFirstSentMessageBody() {
+        return cy.get('#root > div.sc-jcTjWU.dDMTwg > div > div:nth-child(1) > div > div.sc-jRZndg.hlpVYN')
+    }
+    
+    getPermalinkButtonFromFirstMessage() {
+        return cy.get('');
+    }
+    getReplayButtonFromFirstMessage() {
+        return cy.get('');
+    }
+    getReplayContainer() {
+        return cy.get('');
+    }
+    getSaveReplayButton() {
+        return cy.get('');
+    }
+    getCancleReplayButton() {
+        return cy.get('');
     }
 }
-
-export default new Message();
+export default new Messages();
