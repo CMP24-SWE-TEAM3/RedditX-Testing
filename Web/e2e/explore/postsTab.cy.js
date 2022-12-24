@@ -1,6 +1,7 @@
-import {Explore, HomePage} from '../../support/page-objects'
+import  HomePage  from "../../support/page-objects/home-page";
+import  Explore  from "../../support/page-objects/explore";
 import {checkUrl} from "../../Utils/utils";
-
+import { login } from "../../Utils/utils";
 describe('Test the Posts Tab', () => { 
 
     beforeEach(()=>{
@@ -29,17 +30,13 @@ describe('Test the Posts Tab', () => {
 
     it("Click on the up and then on the dwon will return to the same color",()=>{
         // old color
-        Explore.getLikes().should("have.css","color","");
+        Explore.getLikes().should("have.css","color","Red");
         Explore.getUpArrow().realClick();
         Explore.getDownArrow().realClick();
         // old color
-        Explore.getLikes().should("have.css","color","");
+        Explore.getLikes().should("have.css","color","Black");
     })
 
-    it("will click onthe up arrow and then check the number of the likes \
-        according to the unit of the likes",()=>{
-            // will wait
-    })
 
     it("click on the share will appear the dropdown",()=>{
         Explore.getShareButton().realClick();

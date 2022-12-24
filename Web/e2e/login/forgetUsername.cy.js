@@ -7,10 +7,10 @@ describe('Test the functionality of the Forget username page', () => {
           //using a callback function to have access to the data in the fixture file and assigning it to a variable to make it global so it can be accessed through out the test.
           globalThis.data = data;
         });
-        cy.visit("https://www.reddit.com/login");
-        LoginPage.getForgetUsernameLink().should("text","username");
+        cy.visit("https://dev.redditswe22.tech/login");
+       
         LoginPage.getForgetUsernameLink().click();
-        cy.url().should("include", "/username");
+        cy.url().should("include", "/forget-username");
         cy.title().should("include", "Recover your username");
         ForgetUsername.getContainer().contains("Recover your username")
         ForgetUsername.getEmailField().should("be.visible");
@@ -21,18 +21,18 @@ describe('Test the functionality of the Forget username page', () => {
     })  
     it("valid email",()=>{
         ForgetUsername.getEmailField().type(data.email);
-        ForgetUsername.getResetButton().click();
+        ForgetUsername.getResetButton().click({force: true});
         cy.wait(4000)
-        cy.get("#rc-anchor-container > div.rc-anchor-content > div:nth-child(1)").click();
+        //cy.get("#rc-anchor-container > div.rc-anchor-content > div:nth-child(1)").click();
         ForgetUsername.getSuccessAlert().should("be.visible").and("text","Thanks! If your Reddit username and email address match, you'll get an email with a link to reset your password shortly.")
     }) 
-    it.only("click on login link",()=>{
+    it("click on login link",()=>{
         ForgetUsername.getLoginLink().click();
-        cy.url().should("include","/login")
+        cy.url().should("include","https://dev.redditswe22.tech/login")
     })
-    it.only("click on signup link",()=>{
+    it("click on signup link",()=>{
         ForgetUsername.getSignupLink().click();
-        cy.url().should("include","/account/register")
+        cy.url().should("include","https://dev.redditswe22.tech/register")
     })
 
 })

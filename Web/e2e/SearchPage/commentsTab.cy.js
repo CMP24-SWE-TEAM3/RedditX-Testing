@@ -1,19 +1,22 @@
-import {SearchPageCommentsTab} from "../../support/page-objects";
+import {SearchPageCommentsTab,HomePage} from "../../support/page-objects";
+import {login} from "../../Utils/utils"
 describe("test Comments Tab",()=>{
-    const SEARCH_QUERY="ahh";
-    before(()=>{
-        //visit with Query
-        // must visit home page and then search in search box and check the url type and query
-        // cy.visit("https://www.reddit.com");
-        // cy.get("#search-input").type(SEARCH_QUERY)
-        // cy.url().should("include",`search/?q=${SEARCH_QUERY}&type=link`)
-        //get comments tab
-        cy.visit("http://localhost:1648/posts");
+    const SEARCH_QUERY="عايز اعمل صب";
+
+    beforeEach(()=>{
+        cy.visit("https://dev.redditswe22.tech");
+        login();
+        HomePage.getSearchField().type(SEARCH_QUERY);
+        HomePage.getSearchField().type('{enter}');
+        cy.fixture("LinkTabData").then((data) => {
+          globalThis.data = data;
+        });
+        
         cy.get("button").contains("Comments").click();
-        // cy.url().should("include",`search/?q=${SEARCH_QUERY}&type=comment`)
-    })
+      }) 
     it("test content of the comments",()=>{
-        SearchPageCommentsTab.getAllCommentsContent().each($el=>{var text=$el.text();
+        
+        SearchPageCommentsTab.getAllCommentsContent(SEARCH_QUERY).each($el=>{var text=$el.text();
             expect(text).to.include(SEARCH_QUERY)});
     })
 })

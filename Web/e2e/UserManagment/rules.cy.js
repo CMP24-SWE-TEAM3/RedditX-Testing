@@ -1,19 +1,39 @@
-import {Moderator} from "../../support/page-objects";
+import Moderator from "../../support/page-objects/moderatorreda";
+
+import SubReddit from "../../support/page-objects/subreddit";
+import HomePage from "../../support/page-objects/home-page";
+import {LoginWithValidEmail} from "../../Utils/FlairPage/FlairTab"
 describe('Test the Rules Tab', () => { 
     it("test the Edite button when click will open the edit from modal",()=>{
-        Moderator.getEditeButton().realClick();
-        Moderator.getEditeModal().should("be.visible");
+        cy.clearCookies()
+        cy.clearLocalStorage()
+        cy.visit("https://dev.redditswe22.tech/login")
+        // login with a valid email
+        LoginWithValidEmail()
+        // go to SubReddit  page
+        cy.wait(2000)
+        //SubReddit.OpenSubRedditPage();
+        HomePage.getHOMEiconbutton().should("be.visible").click()
+        cy.wait(2000)
+        SubReddit.OpenSubRedditPage();
+        HomePage.getHOMEiconbutton().should("be.visible").click()
+        SubReddit.getModToolsButton().should("be.visible").click()
+        Moderator.getRulesButton().should("be.visible").click()
     })
 
     it("get the report reason and then click edit and then check the form content",()=>{
-        Moderator.getReportContent().invoke("text").as("content");
-        Moderator.getEditeButton().realClick();
+        Moderator.getEditeButton(0).realClick();
+        Moderator.getEditeModal().should("be.visible");
+        Moderator.getReportContent(0).invoke("text").as("content");
+        Moderator.getEditeButton(0).realClick();
         cy.get("@content").then((content)=>{
-            Moderator.getReportReasonField().should("have.text",content);
+        Moderator.getReportReasonField().should("have.text",content);
         })
     })
 
     it("get the Applied to and then click edit and then check the form content",()=>{
+        Moderator.getEditeButton(0).realClick();
+        Moderator.getEditeModal().should("be.visible");
         Moderator.getAppliedTo().invoke("text").as("content");
         Moderator.getEditeButton().realClick();
         cy.get("@content").then((content)=>{
@@ -22,6 +42,8 @@ describe('Test the Rules Tab', () => {
     })
 
     it("get the full description ",()=>{
+        Moderator.getEditeButton(0).realClick();
+        Moderator.getEditeModal().should("be.visible");
         Moderator.getFullDes().invoke("text").as("Des");
         Moderator.getEditeButton().realClick();
         cy.get("@Des").then((Des)=>{
@@ -30,6 +52,7 @@ describe('Test the Rules Tab', () => {
     })
 
     it("check add Rule button",()=>{
+        
         Moderator.getAddRuleButton().readClick();
         Moderator.getAddRuleModal().should("be.visible")
     })
@@ -109,6 +132,26 @@ describe('Test the Rules Tab', () => {
                 expect(true).to(true);
             }
         })
+    })
+
+    it("when i click on add rule button Reason field must be empty",()=>{
+        Moderator.getAddRuleButton().realClick();
+        Moderator.getReasonField().should("have.text","");
+    })
+
+    it("when i click on add rule button description must be empty",()=>{
+        Moderator.getAddRuleButton().realClick();
+        Moderator.getFullDesInput().should("have.text","");
+    })
+
+    it("when i click on add rule button Rule field",()=>{
+        Moderator.getAddRuleButton().realClick();
+        Moderator.getRoleInput().should("have.text","");
+    })
+
+    it("when i click on add rule button",()=>{
+        Moderator.getAddRuleButton().realClick();
+        Moderator.getDeleteButton().should("have.property","disabled");
     })
     
 })

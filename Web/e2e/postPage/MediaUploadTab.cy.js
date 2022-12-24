@@ -7,7 +7,7 @@ import{ attchFile,
         checkSuccessAlert,
         checkMulityVideoFail,
         checkUrl} from "../../Utils/postPage/mediaUpload"
-describe('Test Post functionality', () => { 
+describe('Test Post functionality', () => {
     beforeEach(()=>{
         cy.visit("https://dev.redditswe22.tech");
         login();
@@ -15,7 +15,9 @@ describe('Test Post functionality', () => {
         cy.fixture("MediaData").then((data) => {
             globalThis.data = data;
         });
-        PostPage.getImageVideoTab().should("be.visible").click();
+        cy.wait(2000);
+        cy.reload();
+        PostPage.getImageVideoTab().click();
       })
 
     it("attech file and the preview window mustn't be visible ",()=>{
@@ -62,7 +64,7 @@ describe('Test Post functionality', () => {
     })
 
 
-    it("put invalid file must give me fial alert",()=>{
+    it.skip("put invalid file must give me fial alert",()=>{
         attchFile(data.invalidFile)
         //Hamza (your extenations)
         checkExtenation()
@@ -98,7 +100,7 @@ describe('Test Post functionality', () => {
         
     })
 
-    it.only("put a valid data to the post",()=>{
+    it("put a valid data to the post",()=>{
         attchFile(data.image1);
         PostPage.getTitleFieldMedia().type("New title");
         PostPage.getPostButtonMedia().realClick();

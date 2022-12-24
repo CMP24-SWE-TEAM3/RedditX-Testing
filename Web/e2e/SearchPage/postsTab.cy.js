@@ -16,7 +16,9 @@ describe("Test Posts Tab",()=>{
         login();
         HomePage.getSearchField().type(SEARCH_QUERY);
         HomePage.getSearchField().type('{enter}');
-        cy.get(".isSubP").click();
+        cy.wait(2000)
+        cy.get("#root > div > div > div > div > div.sc-hMAIuT.jXeNaq > div > div.inner-links > a.active > button").click()
+        //cy.get(".isSubP").click();
       })
     it("test content",()=>{
         SearchPagePostsTab.getPostsContent().each($el=>{var text=$el.text();
@@ -135,11 +137,11 @@ describe("Test Posts Tab",()=>{
         mostComments();
     })
 
-    it.skip("test the hot posts",()=>{
+    it("test the hot posts",()=>{
         hotPosts();
     })
 
-    it.skip("test the relevance posts",()=>{
+    it("test the relevance posts",()=>{
         relevancePosts();
     })
     // check communities section

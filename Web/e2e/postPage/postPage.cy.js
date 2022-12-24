@@ -6,6 +6,7 @@ describe('Test Post functionality', () => {
   beforeEach(()=>{
     cy.visit("https://dev.redditswe22.tech");
     login();
+    cy.wait(2000);
     HomePage.getSubmitButton().realClick();
   })
     it("Bold test",()=>{
@@ -152,7 +153,8 @@ describe('Test Post functionality', () => {
     it("Check the content of the  post’s Title",()=>{
       PostPage.getTitleField().first().type("New title");
       PostPage.getPostButtonSubmit().should("have.attr","disabled");
-      PostPage.getCommunityField().first().click();
+      PostPage.getCommunityField().click();
+      PostPage.getCommunity().last().click();
       PostPage.getPostButtonSubmit().click();
       cy.wait(4000);
       cy.url().should("include","/new_title/");
