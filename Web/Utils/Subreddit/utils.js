@@ -1,8 +1,8 @@
-import {SearchPagePostsTab,Subreddit} from "../../support/page-objects";
+import SubReddit from "../../support/page-objects/subreddit";
 
 module.exports.topPosts=()=>{
-    Subreddit.getUpvoteUnites().then(postsUnits=>{
-        Subreddit.getUpvotes().then(postsUpvotes=>
+    SubReddit.getUpvoteUnites().then(postsUnits=>{
+        SubReddit.getUpvotes().then(postsUpvotes=>
         {
             var result=true;
             var newUpvotes=[];
@@ -47,8 +47,8 @@ module.exports.topPosts=()=>{
 
 
 module.exports.newPosts=()=>{
-    Subreddit.getTimeUnites().then(timeUnits=>{
-        Subreddit.getTimeNumber().then(numbers=>
+    SubReddit.getTimeUnites().then(timeUnits=>{
+        SubReddit.getTimeNumber().then(numbers=>
         {
             var result=true;
             var newNumbers=[];
