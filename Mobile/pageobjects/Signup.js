@@ -24,7 +24,7 @@ module.exports = class Login {
     }
 
     async signupEmailErrorPOM() {
-        const selector = await 'new UiSelector().className("android.view.View").instance(7)';
+        const selector = await 'new UiSelector().className("android.view.View").instance(8)';
         return returnPOM(selector);
         //Not a valid email address
     }

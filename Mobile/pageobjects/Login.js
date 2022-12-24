@@ -102,7 +102,7 @@ module.exports = class Login {
     }
 
     async getShowPasswordButton(){
-        const selector = await 'new UiSelector().className("android.widget.Button").instance(2).index(0)';
+        const selector = await 'new UiSelector().className("android.widget.Button").instance(2)';
         return returnPOM(selector);
     }
 
